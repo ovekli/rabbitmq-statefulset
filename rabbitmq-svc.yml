@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2024-08-31T16:08:24Z"
+  labels:
+    app.kubernetes.io/component: rabbitmq
+    app.kubernetes.io/name: import-definitions
+    app.kubernetes.io/part-of: rabbitmq
+  name: import-definitions
+  namespace: rabbit
+  ownerReferences:
+  - apiVersion: rabbitmq.com/v1beta1
+    blockOwnerDeletion: true
+    controller: true
+    kind: RabbitmqCluster
+    name: import-definitions
+    uid: 82981f15-d849-4f66-9ab9-863df1ab334e
+  resourceVersion: "171195"
+  uid: c7e35771-96cd-43dc-9eda-b59c3f92da9f
+spec:
+  clusterIP: 10.217.5.115
+  clusterIPs:
+  - 10.217.5.115
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - appProtocol: amqp
+    name: amqp
+    port: 5672
+    protocol: TCP
+    targetPort: 5672
+  - appProtocol: http
+    name: management
+    port: 15672
+    protocol: TCP
+    targetPort: 15672
+  - appProtocol: prometheus.io/metrics
+    name: prometheus
+    port: 15692
+    protocol: TCP
+    targetPort: 15692
+  selector:
+    app.kubernetes.io/name: import-definitions
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
