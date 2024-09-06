@@ -3,19 +3,4 @@ data:
   enabled_plugins: '[rabbitmq_peer_discovery_k8s,rabbitmq_prometheus,rabbitmq_management].'
 kind: ConfigMap
 metadata:
-  creationTimestamp: "2024-08-31T16:08:24Z"
-  labels:
-    app.kubernetes.io/component: rabbitmq
-    app.kubernetes.io/name: import-definitions
-    app.kubernetes.io/part-of: rabbitmq
-  name: import-definitions-plugins-conf
-  namespace: rabbit
-  ownerReferences:
-  - apiVersion: rabbitmq.com/v1beta1
-    blockOwnerDeletion: true
-    controller: true
-    kind: RabbitmqCluster
-    name: import-definitions
-    uid: 82981f15-d849-4f66-9ab9-863df1ab334e
-  resourceVersion: "171203"
-  uid: 6a0a8c2a-8641-4054-90ff-ac9d410704c5
+  name: rabbitmq-plugins-conf

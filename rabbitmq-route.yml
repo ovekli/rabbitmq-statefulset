@@ -1,33 +1,13 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  annotations:
-    openshift.io/host.generated: "true"
-  creationTimestamp: "2024-08-31T15:57:05Z"
-  labels:
-    app.kubernetes.io/component: rabbitmq
-    app.kubernetes.io/name: import-definitions
-    app.kubernetes.io/part-of: rabbitmq
-  name: import-definitions
-  namespace: rabbit
-  resourceVersion: "168881"
-  uid: 7acf3f69-16f7-4010-92c5-e15b1bfb3d80
+  name: rabbitmq
 spec:
-  host: import-definitions-rabbit.apps-crc.testing
+  host: rabbitmq-rabbit.apps-crc.testing
   port:
     targetPort: 15672
   to:
     kind: Service
-    name: import-definitions
+    name: rabbitmq
     weight: 100
   wildcardPolicy: None
-status:
-  ingress:
-  - conditions:
-    - lastTransitionTime: "2024-08-31T15:57:05Z"
-      status: "True"
-      type: Admitted
-    host: import-definitions-rabbit.apps-crc.testing
-    routerCanonicalHostname: router-default.apps-crc.testing
-    routerName: default
-    wildcardPolicy: None

@@ -8,26 +8,11 @@ data:
     cluster_formation.k8s.host                 = kubernetes.default
     cluster_formation.k8s.address_type         = hostname
     cluster_formation.target_cluster_size_hint = 1
-    cluster_name                               = import-definitions
+    cluster_name                               = rabbitmq
   userDefinedConfiguration.conf: |
     total_memory_available_override_value = 1717986919
     # Path to the mounted definitions file
     load_definitions                      = /etc/rabbitmq/definitions.json
 kind: ConfigMap
 metadata:
-  creationTimestamp: "2024-08-31T16:08:24Z"
-  labels:
-    app.kubernetes.io/component: rabbitmq
-    app.kubernetes.io/name: import-definitions
-    app.kubernetes.io/part-of: rabbitmq
-  name: import-definitions-server-conf
-  namespace: rabbit
-  ownerReferences:
-  - apiVersion: rabbitmq.com/v1beta1
-    blockOwnerDeletion: true
-    controller: true
-    kind: RabbitmqCluster
-    name: import-definitions
-    uid: 82981f15-d849-4f66-9ab9-863df1ab334e
-  resourceVersion: "171205"
-  uid: b6e8848d-de0c-4496-a1e8-ec2b9774de66
+  name: rabbitmq-server-conf

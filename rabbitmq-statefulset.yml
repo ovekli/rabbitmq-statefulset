@@ -1,23 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  creationTimestamp: "2024-08-31T16:08:24Z"
-  generation: 11
-  labels:
-    app.kubernetes.io/component: rabbitmq
-    app.kubernetes.io/name: import-definitions
-    app.kubernetes.io/part-of: rabbitmq
-  name: import-definitions-server
-  namespace: rabbit
-  ownerReferences:
-  - apiVersion: rabbitmq.com/v1beta1
-    blockOwnerDeletion: true
-    controller: true
-    kind: RabbitmqCluster
-    name: import-definitions
-    uid: 82981f15-d849-4f66-9ab9-863df1ab334e
-  resourceVersion: "196514"
-  uid: 81da7074-849c-400a-97dd-daa0b52728e8
+  name: rabbitmq-server
 spec:
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: Retain
@@ -27,16 +11,11 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/name: import-definitions
-  serviceName: import-definitions-nodes
+      app.kubernetes.io/name: rabbitmq
+  serviceName: rabbitmq-nodes
   template:
     metadata:
-      creationTimestamp: null
-      labels:
-        app.kubernetes.io/component: rabbitmq
-        app.kubernetes.io/name: import-definitions
-        app.kubernetes.io/part-of: rabbitmq
-    spec:
+   spec:
       automountServiceAccountToken: true
       containers:
       - env:
@@ -51,7 +30,7 @@ spec:
               apiVersion: v1
               fieldPath: metadata.namespace
         - name: K8S_SERVICE_NAME
-          value: import-definitions-nodes
+          value: rabbitmq-nodes
         - name: RABBITMQ_ENABLED_PLUGINS_FILE
           value: /operator/enabled_plugins
         - name: RABBITMQ_USE_LONGNAME
@@ -60,7 +39,7 @@ spec:
           value: rabbit@$(MY_POD_NAME).$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE)
         - name: K8S_HOSTNAME_SUFFIX
           value: .$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE)
-        image: rabbitmq:3.13.2-management
+        image: custom-registry-intern.klinghed.se/rabbitmq/rabbitmq:3.13.2-management
         imagePullPolicy: IfNotPresent
         lifecycle:
           preStop:
@@ -135,7 +114,7 @@ spec:
           && sed -e 's/default_user/username/' -e 's/default_pass/password/' /tmp/default_user.conf
           >> /var/lib/rabbitmq/.rabbitmqadmin.conf && chmod 600 /var/lib/rabbitmq/.rabbitmqadmin.conf
           ; sleep 30
-        image: rabbitmq:3.13.2-management
+        image: custom-registry-intern.klinghed.se/rabbitmq/rabbitmq:3.13.2-management
         imagePullPolicy: IfNotPresent
         name: setup-container
         resources:
@@ -166,13 +145,13 @@ spec:
       securityContext:
         fsGroup: 0
         runAsUser: 999
-      serviceAccount: import-definitions-server
-      serviceAccountName: import-definitions-server
+      serviceAccount: rabbitmq-server
+      serviceAccountName: rabbitmq-server
       terminationGracePeriodSeconds: 604800
       topologySpreadConstraints:
       - labelSelector:
           matchLabels:
-            app.kubernetes.io/name: import-definitions
+            app.kubernetes.io/name: rabbitmq
         maxSkew: 1
         topologyKey: topology.kubernetes.io/zone
         whenUnsatisfiable: ScheduleAnyway
@@ -183,7 +162,7 @@ spec:
         name: definitions
       - configMap:
           defaultMode: 420
-          name: import-definitions-plugins-conf
+          name: rabbitmq-plugins-conf
         name: plugins-conf
       - name: rabbitmq-confd
         projected:
@@ -195,18 +174,18 @@ spec:
                 path: operatorDefaults.conf
               - key: userDefinedConfiguration.conf
                 path: userDefinedConfiguration.conf
-              name: import-definitions-server-conf
+              name: rabbitmq-server-conf
           - secret:
               items:
               - key: default_user.conf
                 path: default_user.conf
-              name: import-definitions-default-user
+              name: rabbitmq-default-user
       - emptyDir: {}
         name: rabbitmq-erlang-cookie
       - name: erlang-cookie-secret
         secret:
           defaultMode: 420
-          secretName: import-definitions-erlang-cookie
+          secretName: rabbitmq-erlang-cookie
       - emptyDir: {}
         name: rabbitmq-plugins
       - downwardAPI:
@@ -226,35 +205,12 @@ spec:
     kind: PersistentVolumeClaim
     metadata:
       creationTimestamp: null
-      labels:
-        app.kubernetes.io/component: rabbitmq
-        app.kubernetes.io/name: import-definitions
-        app.kubernetes.io/part-of: rabbitmq
       name: persistence
-      namespace: rabbit
-      ownerReferences:
-      - apiVersion: rabbitmq.com/v1beta1
-        blockOwnerDeletion: false
-        controller: true
-        kind: RabbitmqCluster
-        name: import-definitions
-        uid: 82981f15-d849-4f66-9ab9-863df1ab334e
     spec:
       accessModes:
       - ReadWriteOnce
       resources:
         requests:
-          storage: 10Gi
+          storage: 1Gi
       volumeMode: Filesystem
-    status:
-      phase: Pending
-status:
-  availableReplicas: 1
-  collisionCount: 0
-  currentReplicas: 1
-  currentRevision: import-definitions-server-74cd7cd5bc
-  observedGeneration: 11
-  readyReplicas: 1
-  replicas: 1
-  updateRevision: import-definitions-server-74cd7cd5bc
-  updatedReplicas: 1
+
