@@ -11,10 +11,13 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/name: rabbitmq
+      app.kubernetes.io/name: rabbitmq-server
   serviceName: rabbitmq-nodes
   template:
-   spec:
+    metadata:
+      labels:
+        app.kubernetes.io/name: rabbitmq-server
+    spec:
       automountServiceAccountToken: true
       containers:
       - env:
