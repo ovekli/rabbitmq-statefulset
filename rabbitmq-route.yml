@@ -1,13 +1,13 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: rabbitmq
+  name: rabbitmq-server
 spec:
-  host: rabbitmq-rabbit.apps-crc.testing
+  host: rabbitmq-server-custom-rabbit.apps-crc.testing
   port:
     targetPort: 15672
   to:
     kind: Service
-    name: rabbitmq
+    name: rabbitmq-server
     weight: 100
   wildcardPolicy: None
