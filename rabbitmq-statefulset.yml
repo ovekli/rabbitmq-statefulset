@@ -90,7 +90,7 @@ spec:
         - mountPath: /var/lib/rabbitmq/mnesia/
           name: persistence
         - mountPath: /etc/rabbitmq/definitions.json
-          name: definitions
+          name: rabbitmq-definitions
           subPath: definitions.json
         - mountPath: /operator
           name: rabbitmq-plugins
@@ -157,8 +157,8 @@ spec:
       volumes:
       - configMap:
           defaultMode: 420
-          name: definitions
-        name: definitions
+          name: rabbitmq-definitions
+        name: rabbitmq-definitions
       - configMap:
           defaultMode: 420
           name: rabbitmq-plugins-conf

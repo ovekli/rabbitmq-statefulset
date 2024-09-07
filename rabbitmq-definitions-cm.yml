@@ -118,8 +118,4 @@ data:
     }
 kind: ConfigMap
 metadata:
-  creationTimestamp: "2024-08-31T15:50:28Z"
-  name: definitions
-  namespace: rabbit
-  resourceVersion: "167437"
-  uid: 74d03ba9-d6c9-46ed-9918-6f05374ba463
+  name: rabbitmq-definitions
