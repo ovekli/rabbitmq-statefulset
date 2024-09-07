@@ -1,8 +1,8 @@
 apiVersion: v1
 imagePullSecrets:
-- name: import-definitions-server-dockercfg
+- name: rabbitmq-server-dockercfg
 kind: ServiceAccount
 metadata:
-  name: import-definitions-server
+  name: rabbitmq-server
 secrets:
-- name: import-definitions-server-dockercfg
+- name: rabbitmq-server-dockercfg
