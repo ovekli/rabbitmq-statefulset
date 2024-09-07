@@ -14,7 +14,6 @@ spec:
       app.kubernetes.io/name: rabbitmq
   serviceName: rabbitmq-nodes
   template:
-    metadata:
    spec:
       automountServiceAccountToken: true
       containers:
