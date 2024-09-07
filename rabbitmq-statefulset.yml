@@ -144,9 +144,6 @@ spec:
           subPath: default_user.conf
       restartPolicy: Always
       schedulerName: default-scheduler
-      securityContext:
-        fsGroup: 0
-        runAsUser: 999
       serviceAccount: rabbitmq-server
       serviceAccountName: rabbitmq-server
       terminationGracePeriodSeconds: 604800
