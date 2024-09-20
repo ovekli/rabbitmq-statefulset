@@ -2,7 +2,7 @@
 
 import pika, sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', virtual_host='ehm-broker'))
 channel = connection.channel()
 
 channel.exchange_declare(exchange='direct_logs', exchange_type='direct')

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import pika, sys, os
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', virtual_host='ehm-broker'))
 channel = connection.channel()
 channel.queue_declare(queue='hello')
 

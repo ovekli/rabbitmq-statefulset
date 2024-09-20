@@ -2,7 +2,7 @@
 import pika
 
 connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='localhost'))
+    pika.ConnectionParameters(host='localhost', virtual_host='ehm-broker'))
 
 channel = connection.channel()
 
