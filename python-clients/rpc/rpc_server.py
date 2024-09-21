@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 import pika
 
+credentials = pika.PlainCredentials('ehm-user', 'ehm-user')
 connection = pika.BlockingConnection(
-    pika.ConnectionParameters(host='localhost', virtual_host='ehm-broker'))
+    pika.ConnectionParameters(host='localhost', virtual_host='test0', credentials=credentials))
 
 channel = connection.channel()
 

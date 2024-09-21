@@ -2,7 +2,8 @@
 
 import pika, sys
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', virtual_host='ehm-broker'))
+credentials = pika.PlainCredentials('ehm-user', 'ehm-user')
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', virtual_host='test0', credentials=credentials))
 channel = connection.channel()
 
 channel.exchange_declare(exchange='topic_logs', exchange_type='topic')

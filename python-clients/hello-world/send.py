@@ -2,7 +2,8 @@
 
 import pika
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', virtual_host='ehm-broker'))
+credentials = pika.PlainCredentials('ehm-user', 'ehm-user')
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', virtual_host='test0', credentials=credentials))
 channel = connection.channel()
 
 channel.queue_declare(queue='hello')
