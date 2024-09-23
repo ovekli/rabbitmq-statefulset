@@ -1,0 +1,14 @@
+apiVersion: v1
+imagePullSecrets:
+- name: import-definitions-server-dockercfg-cwp5m
+kind: ServiceAccount
+metadata:
+  annotations:
+    rabbitmq.com/queueRebalanceNeededAt: "2024-09-22T14:39:52Z"
+  labels:
+    app.kubernetes.io/component: rabbitmq
+    app.kubernetes.io/name: import-definitions
+    app.kubernetes.io/part-of: rabbitmq
+  name: import-definitions-server
+secrets:
+- name: import-definitions-server-dockercfg-cwp5m

@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  annotations:
+    rabbitmq.com/queueRebalanceNeededAt: "2024-09-22T14:39:52Z"
+  labels:
+    app.kubernetes.io/component: rabbitmq
+    app.kubernetes.io/name: import-definitions
+    app.kubernetes.io/part-of: rabbitmq
+  name: import-definitions-server
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: import-definitions-peer-discovery
+subjects:
+- kind: ServiceAccount
+  name: import-definitions-server

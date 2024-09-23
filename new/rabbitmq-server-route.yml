@@ -1,0 +1,17 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app.kubernetes.io/component: rabbitmq
+    app.kubernetes.io/name: import-definitions
+    app.kubernetes.io/part-of: rabbitmq
+  name: import-definitions
+spec:
+  host: import-definitions-custom-rabbit.apps-crc.testing
+  port:
+    targetPort: 15672
+  to:
+    kind: Service
+    name: import-definitions
+    weight: 100
+  wildcardPolicy: None

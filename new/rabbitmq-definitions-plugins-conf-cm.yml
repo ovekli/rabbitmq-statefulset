@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  enabled_plugins: '[rabbitmq_peer_discovery_k8s,rabbitmq_prometheus,rabbitmq_management].'
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/component: rabbitmq
+    app.kubernetes.io/name: import-definitions
+    app.kubernetes.io/part-of: rabbitmq
+  name: import-definitions-plugins-conf
